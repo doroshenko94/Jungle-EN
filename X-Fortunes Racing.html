@@ -788,62 +788,43 @@ window.addEventListener("load", function() {
 }
 
 
- function moveCar() {
-  var amountInput = document.getElementById("amount");
-  var amount = parseFloat(amountInput.value);
-  if (!isNaN(amount)) {
-    var selectedDriver = document.getElementById("driverSelect").value;
-    var driver = driversData[selectedDriver];
-    driver.position = amount / driver.roadLength;
-    if (driver.position < 0) {
-      driver.position = 0;
-    } else if (driver.position > 1) {
-      driver.position = 1;
-    }
-    var car = document.getElementById("car" + selectedDriver);
-    var driverPositionElement = car.querySelector(".driver-position");
-		playCarAudio();
-	
-	// Останавливаем воспроизведение аудио, если необходимо
-    if (driver.position < 100 && endPosition === 100) {
-      var audio = document.getElementById("carAudio");
-      audio.pause(); // Остановить воспроизведение аудио
-    }
+function moveCar(selectedDriver) {
+  var driver = driversData[selectedDriver];
+  var car = document.getElementById("car" + selectedDriver);
+  var driverPositionElement = car.querySelector(".driver-position");
+ 
+  var startPosition = driver.position * 100;
+  var endPosition = (driver.position * (100 - car.offsetWidth / window.innerWidth * 100));
+  var animationDuration = 100; // Продолжительность анимации в миллисекундах (5 секунд)
 
-    // Добавьте следующие строки, чтобы начать плавное движение автомобиля
-    car.style.animation = ""; // Очищаем анимацию
-    var startPosition = 0; // Начальная позиция за пределами видимости
-    var endPosition = (driver.position * (100 - car.offsetWidth / window.innerWidth * 100)); // Конечная позиция
-    var animationDuration = 5000; // Продолжительность анимации в миллисекундах (5 секунд)
-	
-
-
-    // Используем requestAnimationFrame для создания плавного движения
-    var startTime;
-    function animate(time) {
-      if (!startTime) startTime = time;
-      var progress = (time - startTime) / animationDuration;
-      if (progress < 1) {
-        var currentPosition = startPosition + (endPosition - startPosition) * progress;
-        car.style.left = currentPosition + "vw";
-        driverPositionElement.textContent = "Position: " + (currentPosition * driver.roadLength / 100).toFixed(2) + "%";
-        requestAnimationFrame(animate);
-      } else {
-        car.style.left = endPosition + "vw";
-        driverPositionElement.textContent = "Position: " + (driver.position * 100).toFixed(2) + "%";
-        // Проверяем, достиг ли водитель конечной точки
-        if (driver.position === 1) {
-          showVictory(selectedDriver);
-		  var audio = document.getElementById("carAudio");
-          audio.pause(); // Остановить воспроизведение аудио
-        }
+  var startTime;
+  function animate(time) {
+    if (!startTime) startTime = time;
+    var progress = (time - startTime) / animationDuration;
+    if (progress < 1) {
+      var currentPosition = startPosition + (endPosition - startPosition) * progress;
+      car.style.left = currentPosition + "vw";
+      driverPositionElement.textContent = "Position: " + (currentPosition * driver.roadLength / 100).toFixed(2) + "%";
+      requestAnimationFrame(animate);
+    } else {
+      car.style.left = endPosition + "vw";
+      driverPositionElement.textContent = "Position: " + (driver.position * 100).toFixed(2) + "%";
+      if (driver.position === 1) {
+        showVictory(selectedDriver);
       }
     }
-	updateTournamentTable();
-
-    requestAnimationFrame(animate);
   }
+ 
+  requestAnimationFrame(animate);
 }
+
+// Обновляем позицию водителя Джейден
+driversData[0].position = 10000 / driversData[0].roadLength;
+// Обновляем позицию водителя Саша
+driversData[1].position = 5000 / driversData[0].roadLength;
+
+moveCar(0); // Переместить автомобиль первого водителя
+moveCar(1); // Переместить автомобиль второго водителя
 
   function showVictory(driverIndex) {
     var flag = document.getElementById("flag" + driverIndex);
@@ -903,6 +884,11 @@ setInterval(toggleDayNight, 10000); // 5000 миллисекунд = 5 секу�
   }
   updateTournamentTable();
 
+	// Вызывайте функцию для автообновления страницы каждые 5 секунд
+setInterval(function() {
+  location.reload();
+}, 5000);
+	
 </script>
 </body>
 </html>
