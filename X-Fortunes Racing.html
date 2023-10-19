@@ -818,17 +818,40 @@ function moveCar(selectedDriver) {
   requestAnimationFrame(animate);
 }
 
-// Обновляем позицию водителя Джейден
+// Обновляем позицию водителя Jayden
 driversData[0].position = 42832 / driversData[0].roadLength;
-// Обновляем позицию водителя Саша
-driversData[1].position = 17631 / driversData[0].roadLength;
-	// Обновляем позицию водителя Chris N
-driversData[2].position = 16989 / driversData[0].roadLength;
-
+// Обновляем позицию водителя Sasha
+driversData[1].position = 17631 / driversData[1].roadLength;
+// Обновляем позицию водителя Chris N
+driversData[2].position = 16989 / driversData[2].roadLength;
+// Обновляем позицию водителя George
+driversData[3].position =  8899/ driversData[3].roadLength;
+// Обновляем позицию водителя Adam
+driversData[4].position =  11819/ driversData[4].roadLength;
+// Обновляем позицию водителя Victor
+driversData[5].position =  4834/ driversData[5].roadLength;
+// Обновляем позицию водителя Brian
+driversData[6].position =  25000/ driversData[6].roadLength;
+// Обновляем позицию водителя Connor
+driversData[7].position =  5819/ driversData[7].roadLength;
+// Обновляем позицию водителя Maya
+driversData[8].position =  1182/ driversData[8].roadLength;
+// Обновляем позицию водителя Ryan
+driversData[9].position =  4976/ driversData[9].roadLength;
+// Обновляем позицию водителя Tom
+driversData[10].position =  155545/ driversData[10].roadLength;
 
 moveCar(0); // Переместить автомобиль первого водителя
 moveCar(1); // Переместить автомобиль второго водителя
 moveCar(2); // Переместить автомобиль второго водителя
+moveCar(3); // Переместить автомобиль второго водителя
+moveCar(4); // Переместить автомобиль второго водителя
+moveCar(5); // Переместить автомобиль второго водителя
+moveCar(6); // Переместить автомобиль второго водителя
+moveCar(7); // Переместить автомобиль второго водителя
+moveCar(8); // Переместить автомобиль второго водителя
+moveCar(9); // Переместить автомобиль второго водителя
+moveCar(10); // Переместить автомобиль второго водителя
 
   function showVictory(driverIndex) {
     var flag = document.getElementById("flag" + driverIndex);
