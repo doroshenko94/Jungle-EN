@@ -822,9 +822,13 @@ function moveCar(selectedDriver) {
 driversData[0].position = 42832 / driversData[0].roadLength;
 // Обновляем позицию водителя Саша
 driversData[1].position = 17631 / driversData[0].roadLength;
+	// Обновляем позицию водителя Chris N
+driversData[2].position = 16989 / driversData[0].roadLength;
+
 
 moveCar(0); // Переместить автомобиль первого водителя
 moveCar(1); // Переместить автомобиль второго водителя
+moveCar(2); // Переместить автомобиль второго водителя
 
   function showVictory(driverIndex) {
     var flag = document.getElementById("flag" + driverIndex);
